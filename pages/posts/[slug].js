@@ -1,8 +1,7 @@
-function SinglePostPage({ post }) {
-  return (
-    <div>
-      <h1>{post.title}</h1>
-      <p>{post.content}</p>
-    </div>
-  );
+import PostContent from '../../components/posts/post-detail/post-content'
+
+function PostDetailPage() {
+    return <PostContent />
 }
+
+export default PostDetailPage

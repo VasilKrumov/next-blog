@@ -1,7 +1,8 @@
+import AllPosts from '../../components/posts/all-posts'
+import { DUMMY_POSTS } from '../index'
+
 function AllPostsPage() {
-  return (
-    <div>
-      <h1>All Posts</h1>
-    </div>
-  );
+    return <AllPosts posts={DUMMY_POSTS} />
 }
+
+export default AllPostsPage
