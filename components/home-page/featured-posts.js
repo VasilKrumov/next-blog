@@ -1,6 +1,8 @@
 import classes from './featured-posts.module.css'
-function FeaturedPosts() {
-    const posts = getFeaturedPosts()
+import PostsGrid from '../posts/posts-grid'
+function FeaturedPosts(props) {
+    const { posts } = props
+    // const posts = getFeaturedPosts()
 
     return (
         <section className={classes.latest}>
