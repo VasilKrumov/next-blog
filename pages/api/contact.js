@@ -1,4 +1,6 @@
-function handler(req, res) {
+import { MongoClient } from 'mongodb'
+require('dotenv').config()
+async function handler(req, res) {
     if (req.method === 'POST') {
         const { email, name, message } = req.body
 
@@ -14,7 +16,27 @@ function handler(req, res) {
             message,
         }
 
-        console.log(newMessage)
+        let client
+
+        const uri = process.env.MONGODB_URI
+        try {
+            client = await MongoClient.connect(uri, (err, client) => {})
+        } catch (error) {
+            res.status(500).json({ message: 'Could not connect to database.' })
+        }
+
+        const db = client.db()
+
+        const result = await db.collection('messages').insertOne(newMessage, (err, result) => {
+            if (err) {
+                client.close()
+                res.status(500).json({ message: 'Storing message failed!' })
+                return
+            }
+            client.close()
+        })
+        newMessage.id = result.insertedId
+        await client.close()
 
         res.status(201).json({ reqMessage: 'Successfully stored message!', message: newMessage })
     }
