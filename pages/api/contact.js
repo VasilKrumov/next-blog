@@ -1,5 +1,4 @@
 import { MongoClient } from 'mongodb'
-require('dotenv').config()
 async function handler(req, res) {
     if (req.method === 'POST') {
         const { email, name, message } = req.body
@@ -18,7 +17,8 @@ async function handler(req, res) {
 
         let client
 
-        const uri = process.env.MONGODB_URI
+        const uri = `mongodb+srv://${process.env.mongodb_username}:${process.env.mongodb_password}@${process.env.mongodb_clustername}.8kvabr7.mongodb.net/${process.env.mongodb_database}?retryWrites=true&w=majority`
+
         try {
             client = await MongoClient.connect(uri, (err, client) => {})
         } catch (error) {
